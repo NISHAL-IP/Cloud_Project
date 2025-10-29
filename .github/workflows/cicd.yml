@@ -37,10 +37,10 @@ jobs:
       # 🎨 Frontend
       - name: Install Frontend Dependencies
         run: |
-          cd frontend\my-react-app
+          cd frontend/my-react-app
           npm install
 
       - name: Build Frontend
         run: |
-          cd frontend\my-react-app
+          cd frontend/my-react-app
           npm run build
