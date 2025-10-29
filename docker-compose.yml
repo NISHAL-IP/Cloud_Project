@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  # Backend service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cloud-project-backend
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - FRONTEND_ORIGIN=http://localhost:5173
+      # Database configuration (set these in .env file)
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_SERVER=${DB_SERVER}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_PORT=${DB_PORT:-1433}
+      # Azure services (optional)
+      - ANH_CONNECTION_STRING=${ANH_CONNECTION_STRING}
+      - ANH_HUB_NAME=${ANH_HUB_NAME}
+      - ACS_EMAIL_CONNECTION_STRING=${ACS_EMAIL_CONNECTION_STRING}
+      - ACS_EMAIL_SENDER=${ACS_EMAIL_SENDER}
+      - ACS_CONNECTION_STRING=${ACS_CONNECTION_STRING}
+      - ACS_FROM_PHONE=${ACS_FROM_PHONE}
+      # Twilio (optional)
+      - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID}
+      - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN}
+      - TWILIO_FROM=${TWILIO_FROM}
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - cloud-project-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend service
+  frontend:
+    build:
+      context: ./frontend/my-react-app
+      dockerfile: Dockerfile
+    container_name: cloud-project-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - cloud-project-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  cloud-project-network:
+    driver: bridge
+
+volumes:
+  node_modules:

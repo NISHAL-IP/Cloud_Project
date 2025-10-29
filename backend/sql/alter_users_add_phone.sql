@@ -1,0 +1,4 @@
+ALTER TABLE dbo.Users
+ADD PhoneNumber NVARCHAR(32) NULL;
+
+

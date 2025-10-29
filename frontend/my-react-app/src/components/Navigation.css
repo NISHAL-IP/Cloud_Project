@@ -1,0 +1,132 @@
+.dashboard-nav {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.nav-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-title-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.user-info {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.user-role {
+  font-size: 12px;
+  padding: 2px 8px;
+  background: #e5e7eb;
+  color: #6b7280;
+  border-radius: 12px;
+  text-transform: capitalize;
+}
+
+.logout-button {
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.logout-button:hover {
+  background: #dc2626;
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 0;
+}
+
+.nav-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  border-bottom: 3px solid transparent;
+}
+
+.nav-tab:hover {
+  background: #f9fafb;
+  color: #374151;
+}
+
+.nav-tab.active {
+  background: #f0f9ff;
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+}
+
+.nav-icon {
+  font-size: 16px;
+}
+
+.nav-label {
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .nav-tabs {
+    flex-direction: column;
+  }
+  
+  .nav-tab {
+    justify-content: flex-start;
+    padding: 12px 20px;
+    border-bottom: 1px solid #e5e7eb;
+    border-right: none;
+  }
+  
+  .nav-tab.active {
+    border-bottom-color: #e5e7eb;
+    border-left: 3px solid #2563eb;
+  }
+  
+  .nav-label {
+    display: none;
+  }
+  
+  .nav-icon {
+    font-size: 20px;
+  }
+}
